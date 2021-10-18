@@ -6,13 +6,13 @@ class Matrix
 {
     // Модификатор доступа (Список свойств и методов для использования внутри класса)
 private:
+    
+    // Модификатор доступа (Список методов доступных другим функциям и объектам программы)
+public:
     static const int SIZE = 5;
     static const int ROWS = SIZE;
     static const int COLS = SIZE;
     int matrix[ROWS][COLS];
-
-    // Модификатор доступа (Список методов доступных другим функциям и объектам программы)
-public:
     // Конструктор класса Matrix
     Matrix()
     {
@@ -97,8 +97,21 @@ int main()
     std::cout << "\n" << std::endl;
     std::cout << "Результат умножения матриц А и B" << "\n" << std::endl;
     Matrix C;
-    //передаем наши указатели в функцию умножения
-    C.MatrixMultiplication(A.GetMatrix(), B.GetMatrix());
+
+    for (int i = 0; i < A.ROWS; i++)
+    {
+        for (int j = 0; j < A.COLS; j++)
+        {
+            //обнуление элемента матрицы с результатом
+            C.matrix[i][j] = 0;
+            for (int k = 0; k < A.ROWS; k++)
+            {
+                //умножение матриц - сумма умножений строки на столбец
+                C.matrix[i][j] += A.matrix[i][k] * B.matrix[k][j];
+            }
+        }
+    }
+
     //вывод получившейся матрицы
     C.ShowMatrix();
 }
